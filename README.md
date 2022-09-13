@@ -3,15 +3,41 @@
 
 
 ## Getting started
+If you would like to follow along with me
+You will want to start and log into your Virtual Linux Environment. For this example I will be using Linux UBUNTU 18.04
+Once Logged into you VM with your Sysadmin User, Open your Terminal and I will be able to start the demonstration
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Ensuring file access is secure
+For this demonstration I will be altering the permission for the /etc/shadow, /etc/gshadow, /etc/group, and /etc/passwd log files
+For the /etc/shadow and /etc/gshadow I will set the permission for [root] read and write access
+For the /etc/group and /etc/passwd I will set the permission for [root] read and write access and everyone else read access only.
+To do so I will use the ls command with the -l option to view and verify the file permissions, chmod command to alter the permissions with octal notation.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Start by inspecting the file permissions on each of the files listed, and determine if they are already set correctly or if you need to change the permissions.
 
-## Add your files
+  - Run: `ls -l <file1> <file2> <file3>`
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+1. Set permissions `600` on `/etc/shadow` (`rw` for root only).
+
+   - Running `ls -l /etc/shadow` indicates that the permissions are set to `640`. 
+
+   - Run: `sudo chmod 600 /etc/shadow`
+
+2. Set permissions `600` on `/etc/gshadow` (`rw` for root only).
+
+   - Running `ls -l /etc/gshadow` indicates that the permissions are set to `640`.
+
+   - Run: `sudo chmod 600 /etc/gshadow`
+
+3. Set permissions `644` on `/etc/group` (`rw` for root and `r` for all others).
+
+   - Running `ls -l /etc/group` indicates that the permissions are already set to `644`.
+
+4. Set permissions `644` on` /etc/passwd` (`rw` for root and `r` for all others).
+
+   - Running `ls -l /etc/passwd` indicates that the permissions are already set to `644`.
+  
+For the /etc/group and /etc/passwd I will set the permission for [root] read and write access
 
 ```
 cd existing_repo
