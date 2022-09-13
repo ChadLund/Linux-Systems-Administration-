@@ -8,10 +8,10 @@ You will want to start and log into your Virtual Linux Environment. For this exa
 Once Logged into you VM with your Sysadmin User, Open your Terminal and I will be able to start the demonstration
 
 ## Ensuring file access is secure
-- [ ] For this demonstration I will be altering the permission for the /etc/shadow, /etc/gshadow, /etc/group, and /etc/passwd log files
-- [ ] For the /etc/shadow and /etc/gshadow I will set the permission for [root] read and write access
-- [ ] For the /etc/group and /etc/passwd I will set the permission for [root] read and write access and everyone else read access only.
-- [ ] To do so I will use the ls command with the  option to view and verify the file permissions, chmod command to alter the permissions with octal notation.
+-  For this demonstration I will be altering the permission for the /etc/shadow, /etc/gshadow, /etc/group, and /etc/passwd log files
+-  For the /etc/shadow and /etc/gshadow I will set the permission for [root] read and write access
+-  For the /etc/group and /etc/passwd I will set the permission for [root] read and write access and everyone else read access only.
+-  To do so I will use the ls command with the  option to view and verify the file permissions, chmod command to alter the permissions with octal notation.
 
 Start by inspecting the file permissions on each of the files listed, and determine if they are already set correctly or if you need to change the permissions.
 
