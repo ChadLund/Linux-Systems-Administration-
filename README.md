@@ -8,111 +8,179 @@ You will want to start and log into your Virtual Linux Environment. For this exa
 Once Logged into you VM with your Sysadmin User, Open your Terminal and I will be able to start the demonstration
 
 ## Ensuring file access is secure
--  For this demonstration I will be altering the permission for the /etc/shadow, /etc/gshadow, /etc/group, and /etc/passwd log files
--  For the /etc/shadow and /etc/gshadow I will set the permission for [root] read and write access
--  For the /etc/group and /etc/passwd I will set the permission for [root] read and write access and everyone else read access only.
--  To do so I will use the ls command with the  option to view and verify the file permissions, chmod command to alter the permissions with octal notation.
+
+-  For this demonstration I will:
+-  Altering the permission for the `/etc/shadow` and `/etc/gshadow` and set the permission for `root` read and write access, using `octal` notation.
+-  Altering the permission for the `/etc/group` and `/etc/passwd` and set the permission for `root` read and write access and everyone else read access only, using `octal` notation.
+-  Use the `ls` command with the `-l` option to view and verify the file permissions.
 
 Start by inspecting the file permissions on each of the files listed, and determine if they are already set correctly or if you need to change the permissions.
 
-  - Run: `ls -l <file1> <file2> <file3>`
+  - Navigate to /etc
 
-1. Set permissions `600` on `/etc/shadow` (`rw` for root only).
+  - Run: `ls -l <file1>`
 
-   - Running `ls -l /etc/shadow` indicates that the permissions are set to `640`. 
+1. Set permissions `600` on `/etc/shadow` (`rw` for `root` only).
 
-   - Run: `sudo chmod 600 /etc/shadow`
+   - Running `ls -l /etc/shadow` indicates that the permissions are set to `640`.
 
-2. Set permissions `600` on `/etc/gshadow` (`rw` for root only).
+2. Set permissions `600` on `/etc/gshadow` (`rw` for `root` only).
 
    - Running `ls -l /etc/gshadow` indicates that the permissions are set to `640`.
 
    - Run: `sudo chmod 600 /etc/gshadow`
 
-3. Set permissions `644` on `/etc/group` (`rw` for root and `r` for all others).
+3. Set permissions `644` on `/etc/group` (`rw` for `root` and `r` for all others).
 
    - Running `ls -l /etc/group` indicates that the permissions are already set to `644`.
 
-4. Set permissions `644` on` /etc/passwd` (`rw` for root and `r` for all others).
+   - If we needed to alter the permissions it would be run as: `sudo chmod 644 /etc/group`
+
+4. Set permissions `644` on` /etc/passwd` (`rw` for `root` and `r` for all others).
 
    - Running `ls -l /etc/passwd` indicates that the permissions are already set to `644`.
-  
-For the /etc/group and /etc/passwd I will set the permission for [root] read and write access
 
-```
-cd existing_repo
-git remote add origin https://umn.bootcampcontent.com/chadlund95-viekYx/Linux-Systems-Administration.git
-git branch -M main
-git push -uf origin main
-```
+  - If we needed to alter the permissions it would be run as: `sudo chmod 644 /etc/passwd`
 
-## Integrate with your tools
 
-- [ ] [Set up project integrations](https://umn.bootcampcontent.com/chadlund95-viekYx/Linux-Systems-Administration/-/settings/integrations)
 
-## Collaborate with your team
+## Create User Accounts and groups
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+- For this demonstration I will be:
+- Adding a user by the name of `Rick` to my system, Establishing a group named `Intern`.
+- Assigning `Rick` to the `Intern` group.
+- Aswell as assigning a group directory for the `Intern` group
 
-## Test and Deploy
+1. To create the `Rick` user.
 
-Use the built-in continuous integration in GitLab.
+   - Run `sudo useradd Rick` If you are following along you may configure the user how you like upon set up
+   - I chose to use the command `useradd` instead of `adduser` as it does not establish and directories associated with the user
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+2. To create the `Intern` user group.
 
-***
+   - Run `sudo addgroup Intern` 
+   
+   - If we needed to alter the permissions it would be run as: `sudo chmod 644 /etc/passwd`
 
-# Editing this README
+3. To add `Rick` to group.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+   - Run `sudo usermod` -aG Intern `Rick`
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+4. To create the `Intern` group directory.
 
-## Name
-Choose a self-explaining name for your project.
+   - Run `sudo mkdir` /home/Intern
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+5. To change ownership of the shared directory.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+   - Run `sudo chown :Intern /home/Intern`
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+## Create Service Users
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+- For this demonstration I will:
+- Create a `tripwire` user that will be dedicated to running `Tripwire`
+- Verify that this user is a service user.
+- Verify that this user does not have a home folder.
+- Verify that this user is locked without a password.
+- Verify that this user does not have a login shell.
+- Add a line to the sudoers file to allow this user to run only `tripwire` using sudo privileges.
+- Change the permission of the `tripwire` program to only allow the owner to execute.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+We will create a `tripwire` user that will be dedicated to running Tripwire:
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+    - Run `sudo adduser --system --no-create-home tripwire`
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+    - Run `id tripwire` and verify that the `UID` is less than 1000.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+    - Run `ls /home` to verify there is no `tripwire` home folder.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+    Remember, we can observe password entries in the `/etc/shadow` file.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+     - Run `sudo tail /etc/shadow`
 
-## License
-For open source projects, say how it is licensed.
+    The `*` in the password field for the Tripwire user means the user is locked without a password.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+     - Run `sudo tail /etc/passwd`
+
+    Note that `usr/sbin/nologin` is at the end of the Tripwire line.
+
+3. We will add a line to the `sudoers` file in order to allow this user to run only `tripwire` using `sudo` privileges.
+
+    - Run `sudo visudo`
+
+    - Add `tripwire ALL= NOPASSWD: /usr/sbin/tripwire` to the user section of the file and save it.
+
+    - The section should be as follows:
+
+        ```bash
+        # User privilege specification
+        root ALL=(ALL:ALL) ALL
+        tripwire ALL= NOPASSWD: /usr/sbin/tripwire
+        ```
+
+4. We will change the permission of the `tripwire` program to only allow the `owner` to execute it.
+
+    - Run `which tripwire` to locate the `tripwire` package.
+
+    - Run `sudo chmod 700 /usr/sbin/tripwire`
+
+    - Run `ls -l /usr/sbin/tripwire` to verify.
+
+## `Lynis` Auditing
+- For this demonstration I will:
+- Install the `Lynis` package to my system.
+- Check the `Lynis` documentation for instructions on how to run a system audit.
+- Run a `Lynis` system audit with `sudo`.
+- Provide a report from the `Lynis` output with recommendations for how to harden the system.
+
+1. To Install `Lynis` 
+
+   - Run `sudo apt install lynis`
+
+2. To view the documentation and instructions. 
+
+   - Run `man lynis`
+3. To Run a `Lynis` system audit
+
+   - Run `sudo lynis audit system`
+
+4.  - Your output should be similar to:
+
+  ![Output image](Images/Lynis Audit.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
