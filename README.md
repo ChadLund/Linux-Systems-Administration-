@@ -88,51 +88,48 @@ Start by inspecting the file permissions on each of the files listed, and determ
 
 We will create a `tripwire` user that will be dedicated to running Tripwire:
 
-    - Run `sudo adduser --system --no-create-home tripwire`
+   - Run `sudo adduser --system --no-create-home tripwire`
+   - Run `id tripwire` and verify that the `UID` is less than 1000.
 
-    - Run `id tripwire` and verify that the `UID` is less than 1000.
+   - Run `ls /home` to verify there is no `tripwire` home folder.
 
-    - Run `ls /home` to verify there is no `tripwire` home folder.
+   Remember, we can observe password entries in the `/etc/shadow` file.
 
-    Remember, we can observe password entries in the `/etc/shadow` file.
+   - Run `sudo tail /etc/shadow`
 
-     - Run `sudo tail /etc/shadow`
+   The `*` in the password field for the Tripwire user means the user is locked without a password.
 
-    The `*` in the password field for the Tripwire user means the user is locked without a password.
+   - Run `sudo tail /etc/passwd`
 
-     - Run `sudo tail /etc/passwd`
-
-    Note that `usr/sbin/nologin` is at the end of the Tripwire line.
+   Note that `usr/sbin/nologin` is at the end of the Tripwire line.
 
 3. We will add a line to the `sudoers` file in order to allow this user to run only `tripwire` using `sudo` privileges.
 
-    - Run `sudo visudo`
+   - Run `sudo visudo`
 
-    - Add `tripwire ALL= NOPASSWD: /usr/sbin/tripwire` to the user section of the file and save it.
+   - Add `tripwire ALL= NOPASSWD: /usr/sbin/tripwire` to the user section of the file and save it.
 
-    - The section should be as follows:
-
-        ```bash
-        # User privilege specification
-        root ALL=(ALL:ALL) ALL
-        tripwire ALL= NOPASSWD: /usr/sbin/tripwire
-        ```
+   - The section should be as follows:
+      ```bash
+      # User privilege specification
+      root ALL=(ALL:ALL) ALL
+      tripwire ALL= NOPASSWD: /usr/sbin/tripwire
+      ```
 
 4. We will change the permission of the `tripwire` program to only allow the `owner` to execute it.
 
-    - Run `which tripwire` to locate the `tripwire` package.
+   - Run `which tripwire` to locate the `tripwire` package.
 
-    - Run `sudo chmod 700 /usr/sbin/tripwire`
+   - Run `sudo chmod 700 /usr/sbin/tripwire`
 
-    - Run `ls -l /usr/sbin/tripwire` to verify.
+   - Run `ls -l /usr/sbin/tripwire` to verify.
 
 ## `Lynis` Auditing
 - For this demonstration I will:
 - Install the `Lynis` package to my system.
 - Check the `Lynis` documentation for instructions on how to run a system audit.
 - Run a `Lynis` system audit with `sudo`.
-- Provide a report from the `Lynis` output with recommendations for how to harden the system.
-
+- Provide a sample from the `Lynis` output.
 1. To Install `Lynis` 
 
    - Run `sudo apt install lynis`
@@ -148,11 +145,25 @@ We will create a `tripwire` user that will be dedicated to running Tripwire:
 
   ![Output image](Images/Lynis Audit.png)
 
+##Checking for Rootkits
+- For this demonstration I will:
+- Install the `chkrootkit` package to my system
+- Run `chkrootkit` (with sudo) in expert mode to verify that the system does not have a rootkit installed.
+- Provide a sample from `chkrootkit` output with. 
+1. To Install `chkrootkit` 
 
+   - Run `sudo apt install lynis`
 
+2. To view the documentation and instructions. 
 
+   - Run `man chkrootkit`
+3. To Run a `chkrootkit` system audit
 
+   - Run `sudo chkrootkit -x`
 
+4.  - Your output should be similar to:
+
+  ![Output image](Images/chkrootkit sample.png)
 
 
 
