@@ -1,5 +1,6 @@
 # Linux Systems Administration
-
+I would like to demonstrate some of my acquired Linux system administration skills and so I decided that I would creat a demonstration project.
+- Hope you enjoy!
 
 
 ## Getting started
