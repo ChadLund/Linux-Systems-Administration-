@@ -4,15 +4,15 @@ I would like to demonstrate some of my acquired Linux system administration skil
 
 
 ## Getting started
-If you would like to follow along with me
-You will want to start and log into your Virtual Linux Environment. For this example I will be using Linux UBUNTU 18.04
-Once Logged into you VM with your Sysadmin User, Open your Terminal and I will be able to start the demonstration
+If you would like to follow along with me:
+- You will want to start and log into your Virtual Linux Environment. (For this example I will be using Linux UBUNTU 18.04)
+- Once Logged into you VM with your Sysadmin User, Open your Terminal and I will be able to start the demonstration
 
 ## Ensuring file access is secure
 
 -  For this demonstration I will:
--  Altering the permission for the `/etc/shadow` and `/etc/gshadow` and set the permission for `root` read and write access, using `octal` notation.
--  Altering the permission for the `/etc/group` and `/etc/passwd` and set the permission for `root` read and write access and everyone else read access only, using `octal` notation.
+-  Alter the permission for the `/etc/shadow` and `/etc/gshadow` and set the permission for `root` read and write access, using `octal` notation.
+-  Alter the permission for the `/etc/group` and `/etc/passwd` and set the permission for `root` read and write access and everyone else read access only, using `octal` notation.
 -  Use the `ls` command with the `-l` option to view and verify the file permissions.
 
 Start by inspecting the file permissions on each of the files listed, and determine if they are already set correctly or if you need to change the permissions.
